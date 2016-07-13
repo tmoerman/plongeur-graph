@@ -17,7 +17,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       }
     </style>
     <div style="background: #FFE;">
-      <div id="[[containerId]]" style="height: 400px;"></div>
+      <div id="sigma_container" style="height: 400px;"></div>
       <div>
         <paper-toggle-button checked="{{forceActive}}">force layout</paper-toggle-button>
         <paper-toggle-button checked="{{lassoActive}}">lasso</paper-toggle-button>
@@ -31,19 +31,7 @@ A polymer wrapper for Sigma/Linkurious graphs
 
       is: 'plongeur-graph',
 
-      properties: {
-        containerId: {
-          type: String,
-          value: function() {
-            var S4 = function() {
-              return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-            };
-
-            var uuid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-
-            return "sigma-" + uuid;
-          }
-        },
+      properties: {        
         settings: {
           type: Object,
           value: function() {return {
@@ -100,7 +88,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       attached: function() {
         console.log("attached!");
 
-        this.context     = this._initContext(this.data, this.settings, this.containerId);
+        this.context     = this._initContext(this.data, this.settings);
         this.forceActive = true;
         this.lassoActive = false;
       },
@@ -113,12 +101,12 @@ A polymer wrapper for Sigma/Linkurious graphs
         }
       },
 
-      _initContext: function(data, settings, container) {
+      _initContext: function(data, settings) {
         var self = this;
 
         var cfg = {settings: settings,
                    renderer: {type: 'canvas',
-                              container: container}}
+                              container: 'sigma_container'}}
 
         var sigma_inst = new sigma(cfg);
         var renderer = sigma_inst.renderers[0];
@@ -210,7 +198,7 @@ A polymer wrapper for Sigma/Linkurious graphs
         if (this.context) {
           this.context.sigma.kill();
 
-          this.context     = this._initContext(this.data, this.settings, this.containerId);
+          this.context     = this._initContext(this.data, this.settings);
           this.forceActive = true;
           this.lassoActive = false;
         }
