@@ -31,7 +31,7 @@ A polymer wrapper for Sigma/Linkurious graphs
 
       is: 'plongeur-graph',
 
-      properties: {        
+      properties: {
         settings: {
           type: Object,
           value: function() {return {
@@ -106,7 +106,7 @@ A polymer wrapper for Sigma/Linkurious graphs
 
         var cfg = {settings: settings,
                    renderer: {type: 'canvas',
-                              container: 'sigma_container'}}
+                              container: this.$.sigma_container}};
 
         var sigma_inst = new sigma(cfg);
         var renderer = sigma_inst.renderers[0];
