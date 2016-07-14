@@ -21,9 +21,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       <div>
         <paper-toggle-button checked="{{forceActive}}">force layout</paper-toggle-button>
         <paper-toggle-button checked="{{lassoActive}}">lasso</paper-toggle-button>
-        <!--
-        <paper-button id="generate_data">toggle data</paper-button>
-        -->
+        <paper-button id="generate_data" style="display: {{extraVisible}};">toggle data</paper-button>
       </div>
     </div>
   </template>
@@ -74,6 +72,10 @@ A polymer wrapper for Sigma/Linkurious graphs
           value: function() {return false;},
           notify: true,
           observer: '_lassoToggled'
+        },
+        extraVisible: {
+          type: String,
+          value: function() {return "block";}
         }
       },
 
@@ -122,6 +124,10 @@ A polymer wrapper for Sigma/Linkurious graphs
 
         var lasso_inst = sigma.plugins.lasso(sigma_inst, renderer, {});
 
+        var keyboard_inst = sigma.plugins.keyboard(sigma_inst, renderer);
+        keyboard_inst.bind("70", function() {self._toggleForce();}); // ascii 70 = 'f'
+        keyboard_inst.bind("76", function() {self._toggleLasso();}); // ascii 76 = 'l'
+
         var select_inst = sigma.plugins.select(sigma_inst, activeState, renderer);
         select_inst.bindLasso(lasso_inst);
 
@@ -160,7 +166,11 @@ A polymer wrapper for Sigma/Linkurious graphs
       },
 
       listeners: {
-        //'generate_data.tap': '_generateData'
+        'generate_data.tap': '_generateData'
+      },
+
+      _toggleLasso: function() {
+        this.lassoActive = !this.lassoActive;
       },
 
       _lassoToggled: function(newValue, oldValue) {
@@ -172,6 +182,10 @@ A polymer wrapper for Sigma/Linkurious graphs
             this.context.lasso.deactivate();
           }
         }
+      },
+
+      _toggleForce: function() {
+        this.forceActive = !this.forceActive;
       },
 
       _forceToggled: function(newValue, oldValue) {
