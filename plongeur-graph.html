@@ -21,7 +21,9 @@ A polymer wrapper for Sigma/Linkurious graphs
       <div>
         <paper-toggle-button checked="{{forceActive}}">force layout</paper-toggle-button>
         <paper-toggle-button checked="{{lassoActive}}">lasso</paper-toggle-button>
+        <!--
         <paper-button id="generate_data">toggle data</paper-button>
+        -->
       </div>
     </div>
   </template>
@@ -58,48 +60,7 @@ A polymer wrapper for Sigma/Linkurious graphs
         data: {
           type: String,
           notify: true,
-          value: function() {
-            var result =
-            {"nodes":[
-              {"id":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25","label":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25","size":176,"x":57,"y":49},
-              {"id":"13e94146-5204-4b0e-af01-4aade6aeb510","label":"13e94146-5204-4b0e-af01-4aade6aeb510","size":72,"x":90,"y":82},
-              {"id":"ace92e96-b18e-46d0-8af0-34b73c64661e","label":"ace92e96-b18e-46d0-8af0-34b73c64661e","size":214,"x":9,"y":46},
-              {"id":"185c8f8a-d11f-4aad-b8c5-459ad321f328","label":"185c8f8a-d11f-4aad-b8c5-459ad321f328","size":94,"x":92,"y":34},
-              {"id":"789b3895-9282-4edf-8562-36bf98349e07","label":"789b3895-9282-4edf-8562-36bf98349e07","size":77,"x":19,"y":47},
-              {"id":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b","label":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b","size":255,"x":45,"y":60},
-              {"id":"14858090-913b-48b5-a7ec-2edbfc1ca2d9","label":"14858090-913b-48b5-a7ec-2edbfc1ca2d9","size":1,"x":81,"y":61},
-              {"id":"0c554586-cb63-4ae6-8ee0-c4ee7344de54","label":"0c554586-cb63-4ae6-8ee0-c4ee7344de54","size":198,"x":80,"y":96},
-              {"id":"ecdf3deb-3f68-4142-b764-20a042cc3619","label":"ecdf3deb-3f68-4142-b764-20a042cc3619","size":190,"x":69,"y":77},
-              {"id":"68c307c0-5d8c-4969-91dc-85896284061a","label":"68c307c0-5d8c-4969-91dc-85896284061a","size":52,"x":86,"y":43},
-              {"id":"f355e942-f80a-4330-b986-74ea9f0ce9f7","label":"f355e942-f80a-4330-b986-74ea9f0ce9f7","size":64,"x":36,"y":73},
-              {"id":"b818ac77-dc16-401d-98a9-391a84a8c820","label":"b818ac77-dc16-401d-98a9-391a84a8c820","size":73,"x":72,"y":70},
-              {"id":"3d47a188-02fd-49e9-a296-2eb605965936","label":"3d47a188-02fd-49e9-a296-2eb605965936","size":230,"x":17,"y":84},
-              {"id":"413e40fb-9f30-4835-b107-7a8bea449ac8","label":"413e40fb-9f30-4835-b107-7a8bea449ac8","size":77,"x":0,"y":13},
-              {"id":"81008abb-0e9f-49aa-9422-883498624873","label":"81008abb-0e9f-49aa-9422-883498624873","size":75,"x":78,"y":44},
-              {"id":"f8269593-a1c5-4707-8d19-72dfe7e4da26","label":"f8269593-a1c5-4707-8d19-72dfe7e4da26","size":78,"x":7,"y":45},
-              {"id":"f06c24d5-aee6-4a49-9888-339725c95970","label":"f06c24d5-aee6-4a49-9888-339725c95970","size":74,"x":22,"y":81}
-            ],
-            "edges":[
-              {"id":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25--13e94146-5204-4b0e-af01-4aade6aeb510","source":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25","target":"13e94146-5204-4b0e-af01-4aade6aeb510"},
-              {"id":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25--3d47a188-02fd-49e9-a296-2eb605965936","source":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25","target":"3d47a188-02fd-49e9-a296-2eb605965936"},
-              {"id":"f355e942-f80a-4330-b986-74ea9f0ce9f7--f8269593-a1c5-4707-8d19-72dfe7e4da26","source":"f355e942-f80a-4330-b986-74ea9f0ce9f7","target":"f8269593-a1c5-4707-8d19-72dfe7e4da26"},
-              {"id":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b--ecdf3deb-3f68-4142-b764-20a042cc3619","source":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b","target":"ecdf3deb-3f68-4142-b764-20a042cc3619"},
-              {"id":"ecdf3deb-3f68-4142-b764-20a042cc3619--f8269593-a1c5-4707-8d19-72dfe7e4da26","source":"ecdf3deb-3f68-4142-b764-20a042cc3619","target":"f8269593-a1c5-4707-8d19-72dfe7e4da26"},
-              {"id":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25--185c8f8a-d11f-4aad-b8c5-459ad321f328","source":"9e4578fa-af63-4a0f-8884-d2d7c4e9fb25","target":"185c8f8a-d11f-4aad-b8c5-459ad321f328"},
-              {"id":"789b3895-9282-4edf-8562-36bf98349e07--81008abb-0e9f-49aa-9422-883498624873","source":"789b3895-9282-4edf-8562-36bf98349e07","target":"81008abb-0e9f-49aa-9422-883498624873"},
-              {"id":"ace92e96-b18e-46d0-8af0-34b73c64661e--f06c24d5-aee6-4a49-9888-339725c95970","source":"ace92e96-b18e-46d0-8af0-34b73c64661e","target":"f06c24d5-aee6-4a49-9888-339725c95970"},
-              {"id":"ace92e96-b18e-46d0-8af0-34b73c64661e--3d47a188-02fd-49e9-a296-2eb605965936","source":"ace92e96-b18e-46d0-8af0-34b73c64661e","target":"3d47a188-02fd-49e9-a296-2eb605965936"},
-              {"id":"789b3895-9282-4edf-8562-36bf98349e07--413e40fb-9f30-4835-b107-7a8bea449ac8","source":"789b3895-9282-4edf-8562-36bf98349e07","target":"413e40fb-9f30-4835-b107-7a8bea449ac8"},
-              {"id":"14858090-913b-48b5-a7ec-2edbfc1ca2d9--68c307c0-5d8c-4969-91dc-85896284061a","source":"14858090-913b-48b5-a7ec-2edbfc1ca2d9","target":"68c307c0-5d8c-4969-91dc-85896284061a"},
-              {"id":"0c554586-cb63-4ae6-8ee0-c4ee7344de54--68c307c0-5d8c-4969-91dc-85896284061a","source":"0c554586-cb63-4ae6-8ee0-c4ee7344de54","target":"68c307c0-5d8c-4969-91dc-85896284061a"},
-              {"id":"13e94146-5204-4b0e-af01-4aade6aeb510--81008abb-0e9f-49aa-9422-883498624873","source":"13e94146-5204-4b0e-af01-4aade6aeb510","target":"81008abb-0e9f-49aa-9422-883498624873"},
-              {"id":"ecdf3deb-3f68-4142-b764-20a042cc3619--413e40fb-9f30-4835-b107-7a8bea449ac8","source":"ecdf3deb-3f68-4142-b764-20a042cc3619","target":"413e40fb-9f30-4835-b107-7a8bea449ac8"},
-              {"id":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b--0c554586-cb63-4ae6-8ee0-c4ee7344de54","source":"8a6dd5d4-3ca7-4ff3-a114-ea370c78099b","target":"0c554586-cb63-4ae6-8ee0-c4ee7344de54"},
-              {"id":"185c8f8a-d11f-4aad-b8c5-459ad321f328--b818ac77-dc16-401d-98a9-391a84a8c820","source":"185c8f8a-d11f-4aad-b8c5-459ad321f328","target":"b818ac77-dc16-401d-98a9-391a84a8c820"},
-              {"id":"f355e942-f80a-4330-b986-74ea9f0ce9f7--b818ac77-dc16-401d-98a9-391a84a8c820","source":"f355e942-f80a-4330-b986-74ea9f0ce9f7","target":"b818ac77-dc16-401d-98a9-391a84a8c820"}]};
-
-            return JSON.stringify(result);
-          },
+          value: function() {return JSON.stringify({});},
           observer: '_dataChanged'
         },
         forceActive: {
@@ -199,7 +160,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       },
 
       listeners: {
-        'generate_data.tap': '_generateData'
+        //'generate_data.tap': '_generateData'
       },
 
       _lassoToggled: function(newValue, oldValue) {
