@@ -34,11 +34,11 @@ A polymer wrapper for Sigma/Linkurious graphs
     <div style="background: #FFE;">
       <div class="container flex">
         <div class="pad10">
-          <paper-toggle-button class="padTop5"  checked="{{forceActive}}">force layout</paper-toggle-button>
-          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">lasso tool</paper-toggle-button>
+          <paper-toggle-button class="padTop5"  checked="{{forceActive}}">Force layout</paper-toggle-button>
+          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">Lasso tool</paper-toggle-button>
         </div>
         <div class="pad10">
-          <paper-dropdown-menu label="force algorithm">
+          <paper-dropdown-menu label="Force algorithm">
             <paper-listbox class="dropdown-content" selected="{{forceAlgorithm}}">
               <paper-item>Force Atlas II</paper-item>
               <paper-item>Force Link</paper-item>
@@ -51,7 +51,11 @@ A polymer wrapper for Sigma/Linkurious graphs
         <div class="pad10" >
           <paper-input label="Iterations per render" auto-validate pattern="^[0-9]*$" disabled="[[disableIterationsInputs]]" maxlength="7" error-message="numbers only" value="{{iterationsPerRender}}"/>
         </div>
-        <div class="pad10" style="display: block;">
+        <div class="pad10">
+          <paper-toggle-button class="padTop5"  disabled="[[disableIterationsInputs]]" checked="{{barnesHutOptimize}}">Barnes-Hut optimize</paper-toggle-button>
+          <paper-toggle-button class="padTop10" disabled="[[disableIterationsInputs]]" checked="{{autoStop}}">Auto stop</paper-toggle-button>
+        </div>
+        <div class="pad10" style="display: none;">
           <paper-button id="generate_data">toggle data</paper-button>
         </div>
       </div>
@@ -116,11 +120,19 @@ A polymer wrapper for Sigma/Linkurious graphs
         },
         startingIterations: {
           type: Number,
-          value: function() {return 2500;},
+          value: function() {return 50;},
+        },
+        barnesHutOptimize: {
+          type: Boolean,
+          value: function() {return false;}
+        },
+        autoStop: {
+          type: Boolean,
+          value: function() {return true;}
         },
         iterationsPerRender: {
           type: Number,
-          value: function() {return 10;}
+          value: function() {return 1;}
         },
         lassoActive: {
           type: Boolean,
@@ -244,7 +256,9 @@ A polymer wrapper for Sigma/Linkurious graphs
 
               var config = {
                 startingIterations: this.startingIterations,
-                iterationsPerRender: this.iterationsPerRender
+                iterationsPerRender: this.iterationsPerRender,
+                barnesHutOptimize: this.barnesHutOptimize,
+                autoStop: this.autoStop
               };
 
               var forceLinkInst = sigma.layouts.startForceLink(this.context.sigma, config);
