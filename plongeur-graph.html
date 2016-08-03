@@ -21,8 +21,8 @@ A polymer wrapper for Sigma/Linkurious graphs
       .flex {
         @apply(--layout-horizontal);
       }
-      .spaced {
-        padding: 0px 20px;
+      .pad10 {
+        padding: 10px;
       }
       .padTop10 {
         padding: 10px 0px 0px 0px;
@@ -32,9 +32,12 @@ A polymer wrapper for Sigma/Linkurious graphs
       }
     </style>
     <div style="background: #FFE;">
-      <div id="sigma_container" style="height: [[height]]px;"></div>
       <div class="container flex">
-        <div class="spaced">
+        <div class="pad10">
+          <paper-toggle-button class="padTop5"  checked="{{forceActive}}">force layout</paper-toggle-button>
+          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">lasso tool</paper-toggle-button>
+        </div>
+        <div class="pad10">
           <paper-dropdown-menu label="force algorithm">
             <paper-listbox class="dropdown-content" selected="{{forceAlgorithm}}">
               <paper-item>Force Atlas II</paper-item>
@@ -42,14 +45,17 @@ A polymer wrapper for Sigma/Linkurious graphs
             </paper-listbox>
           </paper-dropdown-menu>
         </div>
-        <div class="spaced">
-          <paper-toggle-button class="padTop5"  checked="{{forceActive}}">force layout</paper-toggle-button>
-          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">lasso tool</paper-toggle-button>
+        <div class="pad10" >
+          <paper-input label="Starting iterations" auto-validate pattern="^[0-9]*$" disabled="[[disableIterationsInputs]]" maxlength="7" error-message="numbers only" value="{{startingIterations}}"/>
         </div>
-        <div class="spaced" style="display: none;">
+        <div class="pad10" >
+          <paper-input label="Iterations per render" auto-validate pattern="^[0-9]*$" disabled="[[disableIterationsInputs]]" maxlength="7" error-message="numbers only" value="{{iterationsPerRender}}"/>
+        </div>
+        <div class="pad10" style="display: block;">
           <paper-button id="generate_data">toggle data</paper-button>
         </div>
       </div>
+      <div id="sigma_container" style="height: [[height]]px;"></div>
     </div>
   </template>
 
@@ -100,9 +106,21 @@ A polymer wrapper for Sigma/Linkurious graphs
         },
         forceAlgorithm: {
           type: Number,
-          value: function() {return 0;},
+          value: function() {return 1;},
           notify: true,
           observer: '_forceAlgorithmSelected'
+        },
+        disableIterationsInputs: {
+          type: Boolean,
+          value: function() {return false;},
+        },
+        startingIterations: {
+          type: Number,
+          value: function() {return 2500;},
+        },
+        iterationsPerRender: {
+          type: Number,
+          value: function() {return 10;}
         },
         lassoActive: {
           type: Boolean,
@@ -128,6 +146,8 @@ A polymer wrapper for Sigma/Linkurious graphs
         this.context     = this._initContext(this.data, this.settings);
         this.forceActive = true;
         this.lassoActive = false;
+
+        this._powerCycle();
       },
 
       detached: function() {
@@ -222,14 +242,16 @@ A polymer wrapper for Sigma/Linkurious graphs
             } else if (this.forceAlgorithm == 1) {
               console.log("starting ForceLink");
 
-              var forceLinkInst = sigma.layouts.startForceLink(this.context.sigma, {adjustSizes: false});
-              var component = this;
+              var config = {
+                startingIterations: this.startingIterations,
+                iterationsPerRender: this.iterationsPerRender
+              };
 
-              forceLinkInst.bind('stop', function(event) {
-                console.log("forceLink event", event);
+              var forceLinkInst = sigma.layouts.startForceLink(this.context.sigma, config);
 
-                //component.forceActive = false;
-              });
+              // forceLinkInst.bind('stop', function(event) {
+              //   console.log("forceLink event", event);
+              // });
             }
           }
         }
@@ -260,16 +282,24 @@ A polymer wrapper for Sigma/Linkurious graphs
       },
 
       _forceToggled: function(newValue, oldValue) {
-        console.log("force toggled", newValue, oldValue);
-
         this.forceActive = newValue;
         this._powerCycle();
       },
 
-      _forceAlgorithmSelected: function(newValue, oldValue) {
-        console.log("force algorithm selected", newValue, oldValue);
+      _setdisableIterationsInputs: function(isForceLink) {
+        if (isForceLink) {
+          this.disableIterationsInputs = false;
+        } else {
+          this.disableIterationsInputs = true;
+        }
+      },
 
+      _forceAlgorithmSelected: function(newValue, oldValue) {
         this.forceAlgorithm = newValue;
+
+        var isForceLink = newValue == 1;
+        this._setdisableIterationsInputs(isForceLink);
+
         this._powerCycle();
       },
 
