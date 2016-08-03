@@ -43,10 +43,10 @@ A polymer wrapper for Sigma/Linkurious graphs
           </paper-dropdown-menu>
         </div>
         <div class="spaced">
-          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">lasso tool</paper-toggle-button>
           <paper-toggle-button class="padTop5"  checked="{{forceActive}}">force layout</paper-toggle-button>
+          <paper-toggle-button class="padTop10" checked="{{lassoActive}}">lasso tool</paper-toggle-button>
         </div>
-        <div class="spaced" style="display: block;">
+        <div class="spaced" style="display: none;">
           <paper-button id="generate_data">toggle data</paper-button>
         </div>
       </div>
@@ -213,7 +213,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       _startForce: function() {
         if (this.context) {
           if (this.forceActive) {
-            console.log("force algorithm: ", this.forceAlgorithm);
+            this.lassoActive = false;
 
             if (this.forceAlgorithm == 0) {
               console.log("starting ForceAtlas2");
