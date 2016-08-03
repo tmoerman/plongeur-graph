@@ -17,7 +17,7 @@ A polymer wrapper for Sigma/Linkurious graphs
       }
     </style>
     <div style="background: #FFE;">
-      <div id="sigma_container" style="height: 400px;"></div>
+      <div id="sigma_container" style="height: [[height]]px;"></div>
       <div>
         <paper-toggle-button checked="{{forceActive}}">force layout</paper-toggle-button>
         <paper-toggle-button checked="{{lassoActive}}">lasso tool</paper-toggle-button>
@@ -49,6 +49,10 @@ A polymer wrapper for Sigma/Linkurious graphs
             nodeHaloColor:                     "#F99",
             nodeHaloSize:                      5
           };}
+        },
+        height: {
+          type: Number,
+          value: function() {return 400;}
         },
         context: {
           type: Object,
